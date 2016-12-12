@@ -34,17 +34,30 @@ public interface IValidationEventHandler extends ValidationEventHandler, Seriali
   @Nonnull
   default IValidationEventHandler andThen (@Nullable final ValidationEventHandler aOther)
   {
-    final IValidationEventHandler aThis = this;
-    if (aOther == null)
-      return aThis;
+    return and (this, aOther);
+  }
 
-    return x -> {
-      if (!aThis.handleEvent (x))
-      {
-        // We should not continue
-        return false;
-      }
-      return aOther.handleEvent (x);
-    };
+  @Nonnull
+  static IValidationEventHandler and (@Nullable final ValidationEventHandler aOne,
+                                      @Nullable final ValidationEventHandler aOther)
+  {
+    if (aOne != null)
+    {
+      if (aOther != null)
+        return x -> {
+          if (!aOne.handleEvent (x))
+          {
+            // We should not continue
+            return false;
+          }
+          return aOther.handleEvent (x);
+        };
+      return x -> aOne.handleEvent (x);
+    }
+
+    if (aOther != null)
+      return x -> aOther.handleEvent (x);
+
+    return x -> true;
   }
 }

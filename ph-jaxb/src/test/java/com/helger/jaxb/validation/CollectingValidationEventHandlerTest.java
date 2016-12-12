@@ -45,7 +45,7 @@ public final class CollectingValidationEventHandlerTest
   public void testReadWrite () throws JAXBException
   {
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (MockJAXBArchive.class);
-    CollectingValidationEventHandler evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler (null));
+    CollectingValidationEventHandler evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler ());
     // is equal to:
     evh = new CollectingValidationEventHandlerFactory ().apply (new LoggingValidationEventHandlerFactory ().apply (null));
     final Unmarshaller um = aCtx.createUnmarshaller ();

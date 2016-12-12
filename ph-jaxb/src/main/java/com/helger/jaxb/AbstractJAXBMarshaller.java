@@ -68,15 +68,11 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
                                              implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
-  @Deprecated
-  public static final boolean DEFAULT_WRITE_FORMATTED = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
-  @Deprecated
-  public static final boolean DEFAULT_USE_CONTEXT_CACHE = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList<> ();
+  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
@@ -220,32 +216,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       return EChange.UNCHANGED;
     m_aNSContext = aNSContext;
     return EChange.CHANGED;
-  }
-
-  /**
-   * @return <code>true</code> if the JAXB output should be formatted. Default
-   *         is <code>false</code>.
-   * @deprecated Use {@link #isFormattedOutput()} instead
-   */
-  @Deprecated
-  public final boolean isWriteFormatted ()
-  {
-    return isFormattedOutput ();
-  }
-
-  /**
-   * Change the way formatting happens when calling write.
-   *
-   * @param bWriteFormatted
-   *        <code>true</code> to write formatted output.
-   * @return {@link EChange}
-   * @deprecated Use {@link #setFormattedOutput(boolean)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public final EChange setWriteFormatted (final boolean bWriteFormatted)
-  {
-    return setFormattedOutput (bWriteFormatted);
   }
 
   public final boolean isFormattedOutput ()

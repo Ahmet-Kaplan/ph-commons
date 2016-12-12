@@ -38,9 +38,9 @@ public final class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndic
   private final EKeyStoreLoadError m_eError;
   private final String [] m_aErrorParams;
 
-  LoadedKey (@Nullable final T aKeyEntry,
-             @Nullable final EKeyStoreLoadError eError,
-             @Nullable final String... aErrorParams)
+  public LoadedKey (@Nullable final T aKeyEntry,
+                    @Nullable final EKeyStoreLoadError eError,
+                    @Nullable final String... aErrorParams)
   {
     m_aKeyEntry = aKeyEntry;
     m_eError = eError;
@@ -60,18 +60,6 @@ public final class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndic
   public T getKeyEntry ()
   {
     return m_aKeyEntry;
-  }
-
-  /**
-   * @return The error code. Never <code>null</code> in case of failure. Always
-   *         <code>null</code> in case of success.
-   * @deprecated Use {@link #getError()} instead
-   */
-  @Deprecated
-  @Nullable
-  public EKeyStoreLoadError getErrorMessage ()
-  {
-    return getError ();
   }
 
   /**
