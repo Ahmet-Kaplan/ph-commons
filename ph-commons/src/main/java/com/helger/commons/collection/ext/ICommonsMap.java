@@ -17,7 +17,6 @@
 package com.helger.commons.collection.ext;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
@@ -65,7 +64,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default <K, V> ICommonsMap <K, V> createInstance ()
   {
-    return new CommonsHashMap<> ();
+    return new CommonsHashMap <> ();
   }
 
   /**
@@ -77,7 +76,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet<> (keySet ());
+    return new CommonsHashSet <> (keySet ());
   }
 
   /**
@@ -109,7 +108,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList<> (values ());
+    return new CommonsArrayList <> (values ());
   }
 
   /**
@@ -188,7 +187,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet<> (entrySet ());
+    return new CommonsHashSet <> (entrySet ());
   }
 
   /**
@@ -589,28 +588,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The value mapper. May not be <code>null</code>.
    * @param <ELEMENTTYPE>
    *        Array element type
-   * @deprecated Use {@link #putAllMapped(Object[], Function, Function)} instead
-   */
-  @Deprecated
-  default <ELEMENTTYPE> void putAll (@Nullable final ELEMENTTYPE [] aElements,
-                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
-                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
-  {
-    putAllMapped (aElements, aKeyMapper, aValueMapper);
-  }
-
-  /**
-   * Add all items from the passed array to this map using the provided key and
-   * value mapper.
-   *
-   * @param aElements
-   *        Source collection. May be <code>null</code>.
-   * @param aKeyMapper
-   *        The key mapper. May not be <code>null</code>.
-   * @param aValueMapper
-   *        The value mapper. May not be <code>null</code>.
-   * @param <ELEMENTTYPE>
-   *        Array element type
    * @since 8.5.5
    */
   default <ELEMENTTYPE> void putAllMapped (@Nullable final ELEMENTTYPE [] aElements,
@@ -622,28 +599,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     if (aElements != null)
       for (final ELEMENTTYPE aElement : aElements)
         put (aKeyMapper.apply (aElement), aValueMapper.apply (aElement));
-  }
-
-  /**
-   * Add all items from the passed collection to this map using the provided key
-   * and value mapper.
-   *
-   * @param aElements
-   *        Source collection. May be <code>null</code>.
-   * @param aKeyMapper
-   *        The key mapper. May not be <code>null</code>.
-   * @param aValueMapper
-   *        The value mapper. May not be <code>null</code>.
-   * @param <ELEMENTTYPE>
-   *        Collection element type
-   * @deprecated Use {@link #putAllMapped(Object[], Function, Function)} instead
-   */
-  @Deprecated
-  default <ELEMENTTYPE> void putAll (@Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
-                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
-  {
-    putAllMapped (aElements, aKeyMapper, aValueMapper);
   }
 
   /**
